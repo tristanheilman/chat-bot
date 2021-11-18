@@ -1,5 +1,5 @@
 {
-    "host": "mongo",
+    "host": "mongodb://treeeest:Stoppable01@treeeest-bot-db-cluster-shard-00-00.w4ipj.mongodb.net:27017,treeeest-bot-db-cluster-shard-00-01.w4ipj.mongodb.net:27017,treeeest-bot-db-cluster-shard-00-02.w4ipj.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-rr70ia-shard-0&authSource=admin&retryWrites=true&w=majority",
     "port": 27017,
-    "name": "dp_agent"
+    "name": "treeeest-bot-db-cluster"
 }

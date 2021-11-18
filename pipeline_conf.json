@@ -20,7 +20,7 @@
     "skill": {
         "connector": {
             "protocol": "http",
-            "url": "http://skill:3000/respond"
+            "url": "https://bot-skill-service-vkvstoshpa-uc.a.run.app/respond"
         },
         "dialog_formatter": "dp_formatters:last_utt_dialog",
         "response_formatter": "dp_formatters:base_formatter_service",

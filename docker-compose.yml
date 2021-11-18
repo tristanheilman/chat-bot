@@ -1,25 +1,11 @@
 services:
-    agent:
-        build:
-            context: ./
-            dockerfile: ./Dockerfile
-        container_name: agent
-        depends_on:
-            - mongo
-        ports:
-            - 4242:4242
-        tty: true
-        command: python -m deeppavlov_agent.run -ch http_client --cors
-    skill:
-        build:
-            context: ./
-            dockerfile: ./Dockerfile
-        command: python skills/treeeest_bot_skill/server.py
-    mongo:
-        command: mongod
-        image: mongo:4.0.0
-        ports:
-            - 27017:27017
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
+  agent:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: agent
+    ports:
+      - 8080:8080
+    tty: true
+    command: python -m deeppavlov_agent.run -p 8080 -ch http_client --cors
 version: "3.7"

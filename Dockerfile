@@ -1,6 +1,6 @@
 FROM python:3.7-slim-stretch
 
-EXPOSE 4242
+EXPOSE 8080
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -14,11 +14,11 @@ RUN apt-get update -y --fix-missing && \
     echo "stty iutf8" >> ~/.bashrc && \
     rm -rf /var/lib/apt/lists/*
 
-
-
 COPY requirements.txt /
 RUN pip install -r requirements.txt
 
 RUN mkdir deeppavlov-agent
 WORKDIR /deeppavlov-agent
 COPY . /deeppavlov-agent/.
+
+CMD python -m deeppavlov_agent.run -ch http_client -p 8080 --cors

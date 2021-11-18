@@ -6,10 +6,12 @@ import re
 import random
 import collections
 import itertools
+import sys
 
 from flask import Flask, request, jsonify
 from os import getenv
 import sentry_sdk
+from waitress import serve
 
 
 sentry_sdk.init(getenv("SENTRY_DSN"))
@@ -19,10 +21,19 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
+@app.route("/")
+def index():
+    return jsonify({ 'status' : 'running'})
 
 @app.route("/respond", methods=["POST"])
 def respond():
     st_time = time.time()
+    sys.stdout.write('Request Values: ')
+    sys.stdout.write(str(request.values))
+    logger.info(f"Request Values = {request.values}")
+    logger.info(f"Request JSON = {request.json}")
+    logger.info(f"Request = {request}")
+
     print(request.values)
     last_utter_batch = request.json["sentences"]
     responses = []
@@ -30,8 +41,11 @@ def respond():
     for last_utter in last_utter_batch:
         response_text, confidence = dialog_segment_handler(last_utter)
         logger.info(f"Last_utter = {last_utter}")
+        sys.stdout.write(str(last_utter))
         logger.info(f"Response_text = {response_text}")
+        sys.stdout.write(str(response_text))
         logger.info(f"Confidence = {confidence}")
+        sys.stdout.write(str(confidence))
 
         responses.append((response_text, confidence))
 
@@ -192,4 +206,5 @@ def dialog_segment_handler(last_utter):
 
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=int(getenv("PORT", 8080)))
+    serve(app, host="0.0.0.0", port=int(getenv("PORT", 8080)))
+    #app.run(debug=False, host="0.0.0.0", port=int(getenv("PORT", 8080)))

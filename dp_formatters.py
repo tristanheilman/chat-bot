@@ -1,7 +1,6 @@
 from typing import Dict, List
 import logging
 from copy import deepcopy
-#from common.universal_templates import if_lets_chat_about_topic
 
 logger = logging.getLogger(__name__)
 
